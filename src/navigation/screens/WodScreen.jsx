@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
+import RenderItem from "../../components/RenderItem";
 
 import "@firebase/firestore";
 import * as firebase from "firebase/app";
@@ -28,65 +29,22 @@ const WodScreen = () => {
   }, [wods]);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-      }}
-    >
-      <Text style={{ textAlign: "center", fontSize: 16, marginTop: 10 }}>
-        Warm Up
-      </Text>
-
+    <View style={styles.container}>
       <FlatList
         data={wods}
-        renderItem={({ item }) => <Item title={item.warmUp} />}
-        keyExtractor={(item, index) => index.toString()}
-      />
-      <Text style={{ textAlign: "center", fontSize: 16 }}>Midline</Text>
-
-      <FlatList
-        data={wods}
-        renderItem={({ item }) => <Item title={item.midline} />}
-        keyExtractor={(item) => item.id}
-      />
-      <Text style={{ textAlign: "center", fontSize: 16 }}>Wod</Text>
-
-      <FlatList
-        data={wods}
-        renderItem={({ item }) => <Item title={item.wod} />}
-        keyExtractor={(item) => item.id}
-      />
-      <Text style={{ textAlign: "center", fontSize: 16 }}>Estructura</Text>
-
-      <FlatList
-        data={wods}
-        renderItem={({ item }) => <Item title={item.estructura} />}
-        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <RenderItem item={item} />}
+        keyExtractor={(index) => index.id}
+        style={{ marginTop: 20 }}
       />
     </View>
   );
 };
 
-function Item({ title }) {
-  return (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  );
-}
 export default WodScreen;
 
 const styles = StyleSheet.create({
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 10,
-    marginHorizontal: 16,
-    shadowColor: "#c2c2c2",
-    shadowOpacity: 1,
-  },
-  title: {
-    fontSize: 18,
+  container: {
+    flex: 1,
+    justifyContent: "center",
   },
 });
